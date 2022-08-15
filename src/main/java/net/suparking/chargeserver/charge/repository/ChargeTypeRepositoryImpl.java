@@ -58,6 +58,8 @@ public class ChargeTypeRepositoryImpl extends BasicRepositoryImpl
         }
     }
 
+
+
     @Override
     public synchronized void unloadById(String projectNo, ObjectId id) {
         List<ChargeType> chargeTypes = getChargeTypes(projectNo);
@@ -104,6 +106,8 @@ public class ChargeTypeRepositoryImpl extends BasicRepositoryImpl
     public synchronized void run(String... args) {
         log.info("ChargeType init ...");
         reloadAll();
+        log.info("ChargeType init finished: " + chargeTypesMap);
+        log.info("DefaultChargeType init finished: " + defaultChargeTypeMap);
     }
 
     private void load(ChargeType chargeType) {

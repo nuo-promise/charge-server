@@ -100,7 +100,7 @@ public class CarTypeRepositoryImpl extends BasicRepositoryImpl implements CarTyp
             return defaultCarTypeMap.get(projectNo);
         }
 
-        log.warn("There is no CarType entity for [" + projectNo + "," + userId + "]");
+        log.warn("There is no CarType entity for [" + projectNo + "," + userId + "] and return defaultCarType");
         return defaultCarTypeMap.get(projectNo);
     }
 
@@ -114,7 +114,7 @@ public class CarTypeRepositoryImpl extends BasicRepositoryImpl implements CarTyp
                 }
             }
         }
-        log.warn("There is no CarType entity for id " + id.toString());
+        log.warn("There is no CarType entity for id " + id.toString() + "and return defaultCarType");
         return defaultCarTypeMap.get(projectNo);
     }
 
@@ -141,6 +141,7 @@ public class CarTypeRepositoryImpl extends BasicRepositoryImpl implements CarTyp
     public synchronized void run(String... arg) {
         log.info("CarType init ...");
         reloadAll();
+        log.info("CarType init finished: " + carTypesMap);
     }
 
     private void load(CarType carType) {

@@ -13,8 +13,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class DiscountInfoDO implements Serializable {
 
-    private static final long serialVersionUID = -3980067719300176381L;
-
     private Long id;
 
     private Long parkingOrderId;

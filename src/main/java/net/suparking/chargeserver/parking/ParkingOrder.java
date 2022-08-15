@@ -429,7 +429,7 @@ public class ParkingOrder {
 
         LinkedList<Frame> rawFrames = makeRawFrames(beginTime, events);
         LinkedList<Frame> unpaidFrames = makeCarGroupFrames(rawFrames, carContext);
-        LinkedList<ChargePeriod> periods = buildChargePeriods(carContext.getProjectNo(), unpaidFrames, tempTypeId);
+        LinkedList<ChargePeriod> periods = buildChargePeriods(projectNo, unpaidFrames, tempTypeId);
 
         if (periods.isEmpty()) {
             log.error("Empty periods, should not happen!");
@@ -438,7 +438,7 @@ public class ParkingOrder {
         }
 
         // txTTL 最小事物时长 分钟
-        List<ChargeFrameInfo> chargeFrameInfos = ChargeHandler.buildChargeFrameInfo(carContext.getProjectNo(), periods);
+        List<ChargeFrameInfo> chargeFrameInfos = ChargeHandler.buildChargeFrameInfo(projectNo, periods);
         // 通过计费规则类型等于FREE 返回真正的计费时长
         int chargeMinutes = ChargeHandler.chargeFrameInfoToGapTime(chargeFrameInfos);
         /** TODO: 计费核心 --> 根据计算出来的计费时间段,优惠时长,时长账户,进行最终的时长计算 */
@@ -580,10 +580,10 @@ public class ParkingOrder {
 
         frames = new LinkedList<>();
         CarGroup carGroup = carContext.getCarGroup();
-        CarType tempCarType = null;
+        CarType tempCarType = CarType.findByProjectNoAndUserId(projectNo, carContext.getUserId());
         // add carGroup expired and carType change.
         if (Objects.nonNull(carContext.getProtocol().expiredCarTypeId)) {
-            tempCarType = CarType.findById(carContext.getProjectNo(), new ObjectId(carContext.getProtocol().expiredCarTypeId));
+            tempCarType = CarType.findById(projectNo, new ObjectId(carContext.getProtocol().expiredCarTypeId));
         }
         ObjectId tempCarTypeId = tempCarType.id;
         ObjectId groupTypeId = carContext.getGroupType().id;

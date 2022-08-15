@@ -44,19 +44,19 @@ public class Protocol extends FieldValidator {
         protocolRepository.reload(protocol);
     }
 
-    public static void unloadById(ObjectId id) {
-        protocolRepository.unloadById(id);
+    public static void unloadById(String projectNo, ObjectId id) {
+        protocolRepository.unloadById(projectNo, id);
     }
 
-    public static Protocol findById(ObjectId id) {
-        return protocolRepository.findById(id);
+    public static Protocol findById(String projectNo, ObjectId id) {
+        return protocolRepository.findById(projectNo, id);
     }
 
-    public static List<Protocol> findAll() {
-        return protocolRepository.findAll();
+    public static List<Protocol> findAll(final String projectNo) {
+        return protocolRepository.findAll(projectNo);
     }
 
-    private static ProtocolRepository protocolRepository = ChargeServerApplication.getBean(
+    private static final ProtocolRepository protocolRepository = ChargeServerApplication.getBean(
             "ProtocolRepositoryImpl", ProtocolRepository.class);
 
     private static final Logger log = LoggerFactory.getLogger(Protocol.class);

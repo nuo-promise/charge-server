@@ -7,6 +7,8 @@ import java.util.Objects;
 
 public class ParkingConfig extends FieldValidator {
 
+    public MatchStrategy matchStrategy;
+
     @ParamNotNull
     public Integer txTTL;
     @ParamNotNull
@@ -14,6 +16,8 @@ public class ParkingConfig extends FieldValidator {
     // TODO add bind discount free time
     public Integer bindDiscountFreeMinutes;
     public Integer minIntervalForDupPark;
+
+    // 以下两个暂存,后续使用
     public Integer minIntervalForDupRecog;
     public Integer minParkingSecond;
 

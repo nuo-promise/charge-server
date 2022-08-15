@@ -41,7 +41,7 @@ public class CarContext {
         if (!userId.isEmpty()) {
             CarGroup carGroup = CarGroup.findByUserId(projectNo, userId);
             if (carGroup != null) {
-                if ((carContext.protocol = Protocol.findById(carGroup.protocolId)) != null) {
+                if ((carContext.protocol = Protocol.findById(projectNo, carGroup.protocolId)) != null) {
                     carContext.carGroup = carGroup;
                     carContext.groupType = CarType.findById(projectNo, carGroup.carTypeId);
                     if (carGroup.active()) {

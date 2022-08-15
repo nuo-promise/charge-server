@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.swing.*;
 import java.util.List;
 
 @Repository("CarGroupRepositoryImpl")
@@ -23,19 +24,21 @@ public class CarGroupRepositoryImpl extends BasicRepositoryImpl implements CarGr
     @Override
     public CarGroup findByProjectNoAndUserId(String projectNo, String userId) {
         return template.findOne(Query.query(
-                Criteria.where("userIds").is(userId)
+                Criteria.where("projectNo").is(projectNo).and("userIds").is(userId)
         ), CarGroup.class);
     }
 
     @Override
     public CarGroup findByProjectNoAndId(String projectNo, ObjectId id) {
-        return template.findById(id, CarGroup.class);
+        return template.findOne(Query.query(
+                Criteria.where("projectNo").is(projectNo).and("_id").is(id)
+        ), CarGroup.class);
     }
 
     @Override
     public List<CarGroup> findByProjectNoAndProtocolId(String projectNo, ObjectId id) {
         return template.find(Query.query(
-                Criteria.where("protocolId").is(id)
+                Criteria.where("projectNo").is(projectNo).and("protocolId").is(id)
         ), CarGroup.class);
     }
 }
